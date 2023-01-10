@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <script src="./js/main.js" defer></script>
+    <title>Amazing Events | Upcoming Events</title>
+</head>
+<body>
+  <div id="app">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html">
+            <img src="./assets/images/logo.png" class="link-logo" alt="logo">
+          </a>
+          <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 d-flex gap-2 d-flex  align-items-center justify-content-end w-100">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link underline" href="#">Upcoming Events</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./pastEvents.html">Past Events</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./stats.html">Stats</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <header class="d-flex justify-content-center align-items-center">
+          <h1>Upcoming Events</h1>
+      </header>
+
+
+      <main>
+        <div class="d-flex gap-3 flex-column align-items-center justify-content-center p-4">
+            <div class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 text-light container flex-column-reverse flex-xl-row">
+              <div  id="containerCheckBoxes" 
+                    class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
+                 <div v-if="categories" v-for="category of categories" class="d-flex gap-1">
+                    <input type="checkbox" v-model="checked" @change="filter" class="accent-color" :value="category" :id="category" />
+                    <label :for="category">{{category}}</label>
+                  </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-center search-container gap-1">
+                  <input type="text" name="search" id="search"  placeholder="write your search..." class="rounded h-100 form-control">
+              </div>
+            </div>
+            <div class="grid-cards" id="containerCards">
+              <article class="card p-2" style="width: 15rem;" v-if="filterEvents" v-for="event of filterEvents">
+                <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
+                <div class="card-body p-2 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title text-center">{{event.name}}</h5>
+                        <p class="card-text">{{event.description}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Price ${{event.price}}</span>
+                        <a :href="'./details.html?id='+event._id" class="btn-viewMore">View more</a>
+                    </div>
+                </div>
+              </article>
+            </div>
+        </div>
+      </main>
+
+    <footer class="d-flex justify-content-between align-items-center px-4 px-lg-5 ">
+      <div class="d-flex gap-3">
+          <div class="rounded-circle container-icon">
+              <a href="">
+                  <img src="./assets/images/instagram.svg" alt="iconInstagram">
+              </a>
+          </div>
+          <div class="rounded-circle container-icon">
+              <a href="">
+                  <img src="./assets/images/facebook.svg" alt="iconFacebook">
+              </a>
+          </div>
+          <div class="rounded-circle container-icon">
+              <a href="">
+                  <img src="./assets/images/whatsapp.svg" alt="iconWhatsapp">
+              </a>
+          </div>
+      </div>
+      <h6>Cohorte 41</h6>
+    </footer>
+  </div>
+</body>
+</html>
