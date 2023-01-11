@@ -17,11 +17,8 @@ const { createApp } = Vue
               .then(res => res.json())
               .then(res => {
 
-                console.log(document.title)
-                console.log(res)
-
                 if(document.title.split("|")[1].trim() === "Home"){
-
+                  
                   this.events = res.events;
 
                 } else if(document.title.split("|")[1].trim()  === "Upcoming Events"){
@@ -31,7 +28,6 @@ const { createApp } = Vue
                 } else {
 
                   this.events = res.events.filter(e => e.date < res.currentDate)
-                  console.log(res)
                   
                 }
 

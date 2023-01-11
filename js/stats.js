@@ -16,10 +16,60 @@ createApp({
                     this.data = res;
                 })
     },
-    computed: {
-        loadStats(){
+    methods: {
+        loadTableCategories : (isBefore, data) => {
 
-            this.firsTable = this.data?.events.reduce((acc, event, index, array) => {
+            if(!data) return;
+
+            let events;
+
+            isBefore ? events = data.events.filter(e => e.date < data.currentDate)
+                     : events = data.events.filter(e => e.date > data.currentDate)
+             
+
+            return events.reduce((acc, ele, index, array) => {
+
+                let accId = acc.indexOf(e => e.name === ele.category); 
+    
+                if(accId >= 0){
+    
+                    acc[accId].revenues += (ele.estimate ?? ele.assistance) * ele.price;
+                    acc[accId].assistance.push((ele.estimate ?? ele.assistance) * 100 / ele.capacity);
+    
+                } else {
+    
+                    const element = {
+                        name : ele.category,
+                        revenues: (ele.estimate ?? ele.assistance) * ele.price,
+                        assistance: [(ele.estimate ?? ele.assistance) * 100 / ele.capacity]
+                    }
+    
+                    acc.push(element);
+    
+                }
+    
+                if (index === array.length - 1) {
+    
+                    for(let elem of acc){
+
+                        let total = elem.assistance.reduce((acc, num) => acc + num, 0);
+    
+                        elem.assistance = parseFloat((total / elem.assistance.length).toFixed(2));
+
+                    }
+    
+                }
+    
+                return acc;
+    
+                
+            }, [])
+
+        },
+
+        loadStatics : (data) => {
+
+            return data.events.reduce((acc, event, index, array) => {
 
                 if ((event.estimate ?? event.assistance) * 100 / event.capacity > acc[0].value) {
         
@@ -58,59 +108,22 @@ createApp({
                 { name: "", value: Infinity },
                 { name: "", value: -Infinity }])
 
-            const loadTableCategories = (isBefore) => {
+        }
 
-                if(!this.data) return;
 
-                let events;
 
-                isBefore ? events = this.data.events.filter(e => e.date < this.data.currentDate)
-                         : events = this.data.events.filter(e => e.date > this.data.currentDate)
-                 
 
-                return events.reduce((acc, ele, index, array) => {
+    },
+    computed: {
+        loadStats(){
 
-                    let accId = acc.indexOf(e => e.name === ele.category); 
-        
-                    if(accId >= 0){
-        
-                        acc[accId].revenues += (ele.estimate ?? ele.assistance) * ele.price;
-                        acc[accId].assistance.push((ele.estimate ?? ele.assistance) * 100 / ele.capacity);
-        
-                    } else {
-        
-                        const element = {
-                            name : ele.category,
-                            revenues: (ele.estimate ?? ele.assistance) * ele.price,
-                            assistance: [(ele.estimate ?? ele.assistance) * 100 / ele.capacity]
-                        }
-        
-                        acc.push(element);
-        
-                    }
-        
-                    if (index === array.length - 1) {
-        
-                        for(let elem of acc){
+            if(!this.data) return;
 
-                            let total = elem.assistance.reduce((acc, num) => acc + num, 0);
-        
-                            elem.assistance = parseFloat((total / elem.assistance.length).toFixed(2));
+            this.firsTable = this.loadStatics(this.data);
 
-                        }
-        
-                    }
-        
-                    return acc;
-        
-                    
-                }, [])
+            this.secondTable = this.loadTableCategories(false, this.data);
 
-            }
-
-            this.secondTable = loadTableCategories(false)
-
-            this.thirdTable = loadTableCategories(true)
+            this.thirdTable = this.loadTableCategories(true, this.data);
         
         }
             

@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="grid-cards" id="containerCards">
-            <article class="card p-2" style="width: 15rem;" v-if="filterEvents" v-for="event of filterEvents">
+            <article class="card p-2" style="width: 15rem;" v-if="filterEvents && filterEvents.length" v-for="event of filterEvents">
               <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
               <div class="card-body p-2 d-flex flex-column justify-content-between">
                   <div>
@@ -120,6 +120,7 @@
               </div>
             </article>
           </div>
+           <p v-if="filterEvents && !filterEvents.length" class="text-center fs-3 text-light">No hay eventos que se correspondan con esa busqueda</p>
         </section>
       </main>
 
