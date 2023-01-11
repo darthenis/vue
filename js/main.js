@@ -9,7 +9,8 @@ const { createApp } = Vue
         categories: null,
         search: "",
         checked: [],
-        filterEvents: null
+        filterEvents: null,
+        error : null
       }
     },
     created(){
@@ -35,6 +36,11 @@ const { createApp } = Vue
                 this.categories = [... new Set(this.events.map(e => e.category))]
       
               })
+              .catch(err => {
+
+                    this.error = err;
+                    console.log(err)
+              }) 
     },
     methods: {
 

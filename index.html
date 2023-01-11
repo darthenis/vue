@@ -27,101 +27,119 @@
     <title>Amazing Events | Home</title>
   </head>
   <body>
-    <div id="app">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="./assets/images/logo.png" class="link-logo" alt="logo" />
-          </a>
-          <button
-            class="navbar-toggler custom-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul
-              class="navbar-nav mb-2 mb-lg-0 d-flex gap-2 d-flex justify-content-end w-100"
+    <div id="app" class="d-flex flex-column justify-content-between">
+      <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="./assets/images/logo.png" class="link-logo" alt="logo" />
+            </a>
+            <button
+              class="navbar-toggler custom-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              <li class="nav-item">
-                <a class="nav-link underline" aria-current="page" href="#"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./upcomingEvents.html"
-                  >Upcoming Events</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./pastEvents.html">Past Events</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./contact.html">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./stats.html">Stats</a>
-              </li>
-            </ul>
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul
+                class="navbar-nav mb-2 mb-lg-0 d-flex gap-2 d-flex justify-content-end w-100"
+              >
+                <li class="nav-item">
+                  <a class="nav-link underline" aria-current="page" href="#"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./upcomingEvents.html"
+                    >Upcoming Events</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./pastEvents.html">Past Events</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./stats.html">Stats</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+  
+        <header class="d-flex justify-content-center align-items-center">
+          <h1>Home</h1>
+        </header>
+  
+      </div>
+      
+      <main>
+        <div class="d-flex justify-content-center">
+          <div v-if="!filterEvents" class="lds-roller mt-5">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
-      </nav>
-
-      <header class="d-flex justify-content-center align-items-center">
-        <h1>Home</h1>
-      </header>
-
-      <main>
-        <section
-          title="home"
-          class="d-flex gap-3 flex-column align-items-center justify-content-center p-4"
-          id="sectionHome"
-        >
-          <div
-            class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 text-light container flex-column-reverse flex-xl-row"
+        <template  v-if="filterEvents">
+          <section
+            title="home"
+            class="d-flex gap-3 flex-column align-items-center justify-content-center p-4"
+            id="sectionHome"
           >
-            <div id="containerCheckBoxes" class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
-              <div v-if="categories" v-for="category of categories" class="d-flex gap-1">
-                <input type="checkbox" v-model="checked" @change="filter" class="accent-color" :value="category" :id="category" />
-                <label :for="category">{{category}}</label>
-              </div>
-            </div>
             <div
-              class="d-flex align-items-center justify-content-center search-container gap-1"
+              class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 text-light container flex-column-reverse flex-xl-row"
             >
-              <input
-                type="text"
-                name="search"
-                v-model="search"
-                @keyup="filter"
-                id="search"
-                class="rounded h-100 form-control filter"
-                placeholder="write your search..."
-              />
-            </div>
-          </div>
-          <div class="grid-cards" id="containerCards">
-            <article class="card p-2" style="width: 15rem;" v-if="filterEvents && filterEvents.length" v-for="event of filterEvents">
-              <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
-              <div class="card-body p-2 d-flex flex-column justify-content-between">
-                  <div>
-                      <h5 class="card-title text-center">{{event.name}}</h5>
-                      <p class="card-text">{{event.description}}</p>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center">
-                      <span class="fw-bold">Price ${{event.price}}</span>
-                      <a :href="'./details.html?id='+event._id" class="btn-viewMore">View more</a>
-                  </div>
+              <div id="containerCheckBoxes" class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
+                
+                <div v-if="categories" v-for="category of categories" class="d-flex gap-1">
+                  <input type="checkbox" v-model="checked" @change="filter" class="accent-color" :value="category" :id="category" />
+                  <label :for="category">{{category}}</label>
+                </div>
               </div>
-            </article>
-          </div>
-           <p v-if="filterEvents && !filterEvents.length" class="text-center fs-3 text-light">There are no matches that correspond to the search</p>
-        </section>
+              <div
+                class="d-flex align-items-center justify-content-center search-container gap-1"
+              >
+                <input
+                  type="text"
+                  name="search"
+                  v-model="search"
+                  @keyup="filter"
+                  id="search"
+                  class="rounded h-100 form-control filter"
+                  placeholder="write your search..."
+                />
+              </div>
+            </div>
+            <div class="grid-cards" id="containerCards">
+              <article class="card p-2" style="width: 15rem;" v-for="event of filterEvents">
+                <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
+                <div class="card-body p-2 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title text-center">{{event.name}}</h5>
+                        <p class="card-text">{{event.description}}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">Price ${{event.price}}</span>
+                        <a :href="'./details.html?id='+event._id" class="btn-viewMore">View more</a>
+                    </div>
+                </div>
+              </article>
+            </div>
+            <p v-if="filterEvents && !filterEvents.length" class="text-center fs-3 text-light">There are no matches that correspond to the search</p>
+          </section>
+        </template>
       </main>
 
       <footer

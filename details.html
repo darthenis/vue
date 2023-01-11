@@ -45,22 +45,35 @@
       </nav>
 
       <main class="d-flex justify-content-center align-items-center" id="mainDetails">
-           
-            <article v-if="event" class="detailCard p-2 gap-4 rounded m-2" id="containerDetail">
-              <img :src="event.image" alt="scale">
-              <div>
-                <h1 class="text-center">{{event.name}}</h1>
-                <ul>
-                    <li><span>Date:</span> {{event.date}}</li>
-                    <li><span>Description:</span> {{event.description}}</li>
-                    <li><span>Category:</span> {{event.category}}</li>
-                    <li><span>Place:</span> {{event.place}}</li>
-                    <li><span>Capacity:</span> {{event.capacity}}</li>
-                    <li><span>{{event.assistance ? "Assistance" : "Estimate"}}: </span>{{event.assistance ? event.assistance : event.estimate}}</li>
-                    <li><span>Price:</span> ${{event.price}}</li>
-                </ul>
+            <div class="d-flex justify-content-center">
+              <div v-if="!event" class="lds-roller mt-5">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-            </article>
+            </div>
+            <template v-if="event">
+              <article class="detailCard p-2 gap-4 rounded m-2" id="containerDetail">
+                <img :src="event.image" alt="scale">
+                <div>
+                  <h1 class="text-center">{{event.name}}</h1>
+                  <ul>
+                      <li><span>Date:</span> {{event.date}}</li>
+                      <li><span>Description:</span> {{event.description}}</li>
+                      <li><span>Category:</span> {{event.category}}</li>
+                      <li><span>Place:</span> {{event.place}}</li>
+                      <li><span>Capacity:</span> {{event.capacity}}</li>
+                      <li><span>{{event.assistance ? "Assistance" : "Estimate"}}: </span>{{event.assistance ? event.assistance : event.estimate}}</li>
+                      <li><span>Price:</span> ${{event.price}}</li>
+                  </ul>
+                </div>
+              </article>
+            </template>
     
       </main>
 
