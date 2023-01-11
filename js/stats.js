@@ -6,7 +6,8 @@ createApp({
             data : null,
             firsTable : [],
             secondTable : [],
-            thirdTable : []
+            thirdTable : [],
+            error: undefined
         }
     },
     created(){
@@ -15,6 +16,12 @@ createApp({
                 .then(res => {
                     this.data = res;
                 })
+                .catch(err => {
+                    
+                    this.error = err
+                    console.log(err)
+                    
+                });
     },
     methods: {
         loadTableCategories : (isBefore, data) => {

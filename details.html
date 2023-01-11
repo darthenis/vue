@@ -46,7 +46,7 @@
 
       <main class="d-flex justify-content-center align-items-center" id="mainDetails">
             <div class="d-flex justify-content-center">
-              <div v-if="!event" class="lds-roller">
+              <div v-if="!event && !error" class="lds-roller">
                 <div></div>
                 <div></div>
                 <div></div>
@@ -57,6 +57,12 @@
                 <div></div>
               </div>
             </div>
+            <template v-if="error">
+              <p class="text-center fs-3 text-light mt-4">
+                Oops, something went wrong.
+              </p>
+            </template>
+           
             <template v-if="event">
               <article class="detailCard p-2 gap-4 rounded m-2" id="containerDetail">
                 <img :src="event.image" alt="scale">
