@@ -141,7 +141,13 @@ header h1 {
 
 main{
 
-   
+    min-height: 60vh;
+
+}
+
+section{
+
+    max-width: 100vw;
 
 }
 

@@ -14,7 +14,6 @@
 </head>
 <body>
   <div id="app" class="d-flex flex-column justify-content-between">
-      <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
           <div class="container-fluid">
             <a class="navbar-brand" href="./index.html">
@@ -48,12 +47,12 @@
         <header class="d-flex justify-content-center align-items-center">
             <h1>Upcoming Events</h1>
         </header>
-      </div>
 
 
-      <main>
-        <div class="d-flex justify-content-center align-items-center">
-          <div v-if="!filterEvents" class="lds-roller mt-5">
+
+      <main class="d-flex justify-content-center">
+        <div class="align-self-center">
+          <div v-if="!filterEvents" class="lds-roller">
             <div></div>
             <div></div>
             <div></div>
@@ -65,37 +64,36 @@
           </div>
         </div>
         <template v-if="filterEvents">
-          <div  
-                class="d-flex gap-3 flex-column align-items-center justify-content-center p-4">
-              <div class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 text-light container flex-column-reverse flex-xl-row">
-                <div  id="containerCheckBoxes" 
-                      class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
-                  <div v-for="category of categories" class="d-flex gap-1">
-                      <input type="checkbox" v-model="checked" @change="filter" class="accent-color" :value="category" :id="category" />
-                      <label :for="category">{{category}}</label>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-center search-container gap-1">
-                    <input type="text" name="search" @keyup="filter" v-model="search" id="search"  placeholder="write your search..." class="rounded h-100 form-control">
-                </div>
-              </div>
-              <div class="grid-cards" id="containerCards">
-                <article class="card p-2" style="width: 15rem;" v-for="event of filterEvents">
-                  <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
-                  <div class="card-body p-2 d-flex flex-column justify-content-between">
-                      <div>
-                          <h5 class="card-title text-center">{{event.name}}</h5>
-                          <p class="card-text">{{event.description}}</p>
-                      </div>
-                      <div class="d-flex justify-content-between align-items-center">
-                          <span class="fw-bold">Price ${{event.price}}</span>
-                          <a :href="'./details.html?id='+event._id" class="btn-viewMore">View more</a>
+          <section class="p-4">
+                <div class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 mb-2 text-light container flex-column-reverse flex-xl-row">
+                  <div  id="containerCheckBoxes" 
+                        class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
+                    <div v-for="category of categories" class="d-flex gap-1">
+                        <input type="checkbox" v-model="checked" @change="filter" class="accent-color" :value="category" :id="category" />
+                        <label :for="category">{{category}}</label>
                       </div>
                   </div>
-                </article>
-              </div>
-          </div>
-          <p v-if="!filterEvents.length" class="text-center fs-3 text-light">There are no matches that correspond to the search</p>
+                  <div class="d-flex align-items-center justify-content-center search-container gap-1">
+                      <input type="text" name="search" @keyup="filter" v-model="search" id="search"  placeholder="write your search..." class="rounded h-100 form-control">
+                  </div>
+                </div>
+                <div class="grid-cards" id="containerCards">
+                  <article class="card p-2" style="width: 15rem;" v-for="event of filterEvents">
+                    <img :src="event.image" class="card-img-top" alt="Collectivities-Party">
+                    <div class="card-body p-2 d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-center">{{event.name}}</h5>
+                            <p class="card-text">{{event.description}}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Price ${{event.price}}</span>
+                            <a :href="'./details.html?id='+event._id" class="btn-viewMore">View more</a>
+                        </div>
+                    </div>
+                  </article>
+                </div>
+            <p v-if="!filterEvents.length" class="text-center fs-3 text-light">There are no matches that correspond to the search</p>
+          </section>
         </template>
       </main>
               

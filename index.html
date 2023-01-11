@@ -28,8 +28,7 @@
   </head>
   <body>
     <div id="app" class="d-flex flex-column justify-content-between">
-      <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 sticky-top">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
               <img src="./assets/images/logo.png" class="link-logo" alt="logo" />
@@ -71,17 +70,17 @@
               </ul>
             </div>
           </div>
-        </nav>
+      </nav>
   
-        <header class="d-flex justify-content-center align-items-center">
-          <h1>Home</h1>
-        </header>
+      <header class="d-flex justify-content-center align-items-center">
+        <h1>Home</h1>
+      </header>
   
-      </div>
+
       
-      <main>
-        <div class="d-flex justify-content-center">
-          <div v-if="!filterEvents" class="lds-roller mt-5">
+      <main class="d-flex justify-content-center">
+        <div class="align-self-center">
+          <div v-if="!filterEvents" class="lds-roller">
             <div></div>
             <div></div>
             <div></div>
@@ -95,11 +94,11 @@
         <template  v-if="filterEvents">
           <section
             title="home"
-            class="d-flex gap-3 flex-column align-items-center justify-content-center p-4"
+            class="p-4"
             id="sectionHome"
           >
             <div
-              class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 text-light container flex-column-reverse flex-xl-row"
+              class="d-flex flex-wrap gap-4 w-100 justify-content-around p-2 mb-2 text-light container flex-column-reverse flex-xl-row"
             >
               <div id="containerCheckBoxes" class="d-flex flex-wrap gap-4 justify-content-center align-items-center labelCheck">
                 
