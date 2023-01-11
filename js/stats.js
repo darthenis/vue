@@ -19,22 +19,20 @@ createApp({
     methods: {
         loadTableCategories : (isBefore, data) => {
 
-            if(!data) return;
-
             let events;
 
             isBefore ? events = data.events.filter(e => e.date < data.currentDate)
-                     : events = data.events.filter(e => e.date > data.currentDate)
+                     : events = data.events.filter(e => e.date >= data.currentDate)
              
 
             return events.reduce((acc, ele, index, array) => {
 
-                let accId = acc.indexOf(e => e.name === ele.category); 
+                let accIdx = acc.indexOf(e => e.name === ele.category); 
     
-                if(accId >= 0){
+                if(accIdx >= 0){
     
-                    acc[accId].revenues += (ele.estimate ?? ele.assistance) * ele.price;
-                    acc[accId].assistance.push((ele.estimate ?? ele.assistance) * 100 / ele.capacity);
+                    acc[accIdx].revenues += (ele.estimate ?? ele.assistance) * ele.price;
+                    acc[accIdx].assistance.push((ele.estimate ?? ele.assistance) * 100 / ele.capacity);
     
                 } else {
     
@@ -71,14 +69,14 @@ createApp({
 
             return data.events.reduce((acc, event, index, array) => {
 
-                if ((event.estimate ?? event.assistance) * 100 / event.capacity > acc[0].value) {
+                if (event.assistance * 100 / event.capacity > acc[0].value) {
         
                     acc[0].name = event.name;
                     acc[0].value = parseFloat(((event.estimate ?? event.assistance) * 100 / event.capacity).toFixed(2));
                 }
         
         
-                if ((event.estimate ?? event.assistance) * 100 / event.capacity < acc[1].value) {
+                if (event.assistance * 100 / event.capacity < acc[1].value) {
         
                     acc[1].name = event.name;
                     acc[1].value = parseFloat(((event.estimate ?? event.assistance) * 100 / event.capacity).toFixed(2));
